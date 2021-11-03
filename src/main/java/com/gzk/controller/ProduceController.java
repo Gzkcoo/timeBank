@@ -20,6 +20,8 @@ public class ProduceController {
     @Qualifier("produceServiceImpl")
     private ProduceService produceService;
 
+    //登录接口
+
     @RequestMapping(value = "/add",method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> addProduce(@RequestBody Produce produce){
