@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gzk.dao.ProduceMapper">
+
+    <select id="queryProduceById" resultType="Produce">
+        select  * from produce   where id = #{id}
+    </select>
+
+    <insert id="addProduce" parameterType="Produce">
+        insert into produce(id,name,price,num)
+        values(#{id},#{name},#{price},#{num})
+    </insert>
+
+    <delete id="deleteProduce" >
+        delete from produce where id = #{id}
+    </delete>
+
+    <update id="updateProduce" parameterType="Produce">
+        update Produce
+        set name = #{name},price = #{price},num = #{num}
+        where id = #{id}
+    </update>
+
+    <select id="queryAllProduce" resultType="Produce">
+        select * from produce
+    </select>
+
+    <delete id="delectManyProduces" parameterType="arraylist">
+        delete from produce
+        <where>
+            <foreach collection="array" item="id"
+                     separator="," open="id in (" close=")">
+                #{id}
+            </foreach>
+        </where>
+
+    </delete>
+
+    <select id="likeQueryByPage" resultType="Produce">
+        select * from
+        (
+            select *
+            from produce
+            where produce.name like "%"#{name}"%"
+        ) t limit #{start},#{limits}
+    </select>
+
+</mapper>
